@@ -1,0 +1,63 @@
+SAG SPED Migration – Part Folder Structure
+------------------------------------------
+
+Each "Part" folder should follow this structure for consistency and auditing:
+
+Example Layout:
+
+AAA_DONE_IMPORTED_2284
+AAA_FILES
+FileList_2433.csv
+FileCopyLog.txt
+SubParts_PendingImport_149
+Thumbs.db
+
+------------------------------------------
+Folder and File Naming Rules:
+
+1. AAA_DONE_IMPORTED_<count>
+   - Contains files that have been successfully imported.
+   - <count> must always equal the current number of files in this folder.
+   - Update the folder name whenever files are added.
+
+2. AAA_FILES
+   - Contains the original source files for this part.
+   - This folder should not be renamed or altered.
+   - Serves as the reference set for the entire part.
+
+3. FileList_<originalCount>.csv
+   - CSV listing all files in the original source set (AAA_FILES).
+   - <originalCount> reflects the original file count for this part.
+   - This number does not change, even as files move into other folders.
+
+4. FileCopyLog.txt
+   - Text log documenting actions, notes, and issues.
+   - Example entries:
+       [2025-08-27] Imported 150 files from SubParts_PendingImport_300
+       [2025-08-27] Renamed 2 files with invalid characters
+   - Update continuously during the migration process.
+
+5. SubParts_PendingImport_<count>
+   - Holds files staged for the next import batch.
+   - <count> must always equal the current number of files in this folder.
+   - Update the folder name whenever files are added or removed.
+
+6. Thumbs.db
+   - Windows system file, ignore if present.
+
+------------------------------------------
+Process Workflow:
+
+Step 1: Place the source files into AAA_FILES.
+Step 2: Generate FileList_<originalCount>.csv to capture the original total.
+Step 3: Stage files for import in SubParts_PendingImport_<count>.
+Step 4: After import, move files into AAA_DONE_IMPORTED_<count>.
+Step 5: Update FileCopyLog.txt with details of each action.
+Step 6: Always adjust folder names so the <count> matches the actual file count.
+
+------------------------------------------
+Key Points:
+- Folder name counts (_<count>) are dynamic and must be kept accurate for auditing.
+- FileList_<originalCount>.csv is static — it always shows the original file total.
+- Keeping this structure consistent ensures anyone can open a Part folder and
+  immediately see the status of that set.
